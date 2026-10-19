@@ -1,0 +1,38 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="1HOtswVztr9tFLUdoCEp">
+    <mxGraphModel dx="566" dy="384" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="y7HjPFzRpEENxoHTXboz-6" edge="1" parent="1" source="y7HjPFzRpEENxoHTXboz-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="y7HjPFzRpEENxoHTXboz-5">
+          <mxGeometry relative="1" x="-0.25" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="260" />
+            </Array>
+            <mxPoint x="220" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Server01" vertex="1">
+          <mxGeometry height="40" width="120" x="40" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-7" edge="1" parent="1" source="y7HjPFzRpEENxoHTXboz-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-2" parent="1" style="whiteSpace=wrap;html=1;" value="Client01" vertex="1">
+          <mxGeometry height="40" width="120" x="280" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-4" parent="1" style="whiteSpace=wrap;html=1;" value="SW1" vertex="1">
+          <mxGeometry height="40" width="40" x="200" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-8" edge="1" parent="1" source="y7HjPFzRpEENxoHTXboz-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="y7HjPFzRpEENxoHTXboz-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="y7HjPFzRpEENxoHTXboz-5" parent="1" style="whiteSpace=wrap;html=1;" value="R1" vertex="1">
+          <mxGeometry height="40" width="40" x="200" y="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
