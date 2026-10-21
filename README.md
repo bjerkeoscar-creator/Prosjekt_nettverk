@@ -1,5 +1,5 @@
 # Prosjekt_nettverk
-prosjekt nettverk
+Del 1 – Fysisk Nettverk
 
 Tegne nettverk
 Jeg koblet først nettverket skissert ut slik:
