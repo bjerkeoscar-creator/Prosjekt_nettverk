@@ -55,3 +55,34 @@ Ping til klient fra server:
 Jeg pinget også med den statiske IP-en til klienten via ethernet som var 192.168.1.11 og det funket, dette er via wifi med DHCP IP.
 
 (Request timed out var fra før jeg åpnet for echorequest innbound rules som det  står mer om feilsøkings delen.)
+
+# DHCP
+
+<img width="945" height="429" alt="image" src="https://github.com/user-attachments/assets/ab6e0149-1d7e-4c75-8a1c-bf95431d3326" />
+
+Etter å ha brukt statisk IP med hjelp av Ethernet så skrudde jeg på DHCP. Ruteren er konfigurert, med DHCP.
+
+Her så blir klient pc tildelt en IP mellom 100 og 199.
+
+ServerO1 er gitt en manuell IP adresse. Som er: 192.168.1.10
+
+Siden server er en domain Controller så må IP-en være statisk, eller så får ikke klient og server kommunisert, og funksjoner som GPO vil ikke fungere. i dette tilfellet er også serveren DNS serveren. En DNS bør alltid være statisk siden den fungerer som ankeret i nettverket der alle enhetene kan søke opp adressen for å få kontakt.
+
+Klient PC er gitt en IP-adresse med fra DHCP innenfor det oppsatte spekteret. Som er:
+<img width="945" height="221" alt="image" src="https://github.com/user-attachments/assets/03e13f34-3a96-4805-957d-130d3e0e6c81" />
+
+ved å bruke
+
+ipconfig /release 
+
+Så kommuniserte klienten med DHCP tjenesten på ruteren, og ga klienten en ny IP-adresse. 
+
+ipconfig /renew
+
+Denne kommandoen gjør at klienten sender en ny forespørsel til DHCP, og spør om en ny IP-adresse.
+
+Ved å bruke ipconfig/all så resultatet slik ut:
+<img width="945" height="425" alt="image" src="https://github.com/user-attachments/assets/6db219b0-748d-4ae0-acd5-b7709fe890ab" />
+
+IP-adressen jeg hadde tidligere ble endret til 100 istedenfor 101, da 100 var ikke leaset ut.
+
