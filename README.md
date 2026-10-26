@@ -86,3 +86,45 @@ Ved å bruke ipconfig/all så resultatet slik ut:
 
 IP-adressen jeg hadde tidligere ble endret til 100 istedenfor 101, da 100 var ikke leaset ut.
 
+Gateway:
+<img width="945" height="348" alt="image" src="https://github.com/user-attachments/assets/233e8d44-6f2a-4922-9dd4-6b0ce9c3e07e" />
+Ruter er gitt samme IP- adresse som Gateway. Da ruteren er sluttpunktet på nettverket.
+
+# Fildeling
+For å lage en felles mappe så startet jeg med å lage en mappe på skrivebordet, videre så trykket jeg på Properties, og så Advanced sharing.
+
+<img width="944" height="634" alt="image" src="https://github.com/user-attachments/assets/6867c4b2-15cd-41a9-9da2-cb3dc2239792" />
+
+Deretter så la jeg til gruppen everyone, det gjorde jeg ved å åpne permissions og huket av for read and write tilgang for everyone.
+
+_Dette er noe som ideelt sett ikke bør gjøres i et nettverk der det er flere brukere, da dette gir alle fri tilgang til å gjøre endringer, men siden det bare var meg på nettverket så funket denne løsningen._
+
+<img width="363" height="450" alt="Bilde1" src="https://github.com/user-attachments/assets/1235f849-b266-4d85-9420-2b717eb1101e" />
+
+Etter dette så måtte jeg ha tilgang til mappen på klient pc-en.
+
+<img width="369" height="311" alt="image" src="https://github.com/user-attachments/assets/c7f9d589-fa2e-411a-afc8-b1589433e1fe" />
+
+_jeg la til nettverksplasseringen via filutforsker._
+
+<img width="930" height="769" alt="image" src="https://github.com/user-attachments/assets/bffff9f3-bbae-402b-8d54-f982ee7ac928" />
+
+Slik så Windows-stien til mappen ut. Jeg opprettet en mappe i felles som jeg kalte bilder. I denne mappen så kunne jeg dele bilder fra server til klient som hjalp når jeg skrev dokumentasjonen.
+
+192.168.1.10 er IP-adressen på serveren, og siden denne er satt opp statisk, så vet klient pc-en hvor den finner denne mappen hver gang den er koblet på samme nettverk. Dette er en av grunnene til at det er viktig at serveren er på en statisk IP-adresse. 
+
+Slik så resultatet ut:
+
+<img width="456" height="141" alt="image" src="https://github.com/user-attachments/assets/3d1e9834-77cb-49da-bcd0-016b81e769a1" />
+
+_Nettverksmappen i Windows filutforsker._
+
+<img width="764" height="109" alt="image" src="https://github.com/user-attachments/assets/ae31e19a-a318-4ebb-964f-2fad753065ad" />
+
+_Bilder mappen._
+
+<img width="764" height="109" alt="image" src="https://github.com/user-attachments/assets/c1871a65-10b2-4d64-b5d9-77b4bffaf16a" />
+
+_Bilder lagret på server, som klient har tilgang til._
+
+
