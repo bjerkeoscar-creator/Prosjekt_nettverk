@@ -2,7 +2,27 @@
 
 # Beskrivelse av oppdraget:
 I dette prosjektet så har jeg analysert, konfigurert og feilsøkt mitt lokale nettverk som jeg har på skolen:
-Videre så har jeg ved bruk av packet tracer satt opp ett virtuelt bedriftsnettverk, der 2 rutere kommuniserer med hverandre og videre…..
+Videre så har jeg ved bruk av packet tracer satt opp ett virtuelt bedriftsnettverk, der 2 rutere skal kommunisere med hverandre og ha flere avdelinger med DHCP IP-er koblet til hver ruter, og som også skal kommunisere med hverandre og en server med DNS.
+
+# Krav spesifikasjon
+
+Kravspesifikasjon:
+
+ServerO2 og Klient pc skal kunne kommunisere med hverandre.
+
+ServerO2 skal ha en fast IP-adresse.
+
+Klient pc skal kunne få nettverksinnstillinger fra ruter med DHCP
+
+Klient pc skal bruke minst én tjeneste på ServerO2
+
+Bedriftsnettverk i packet tracer skal ha flere LAN og Routing mellom dem.
+
+Klientene i packet tracer skal få riktige nettverksinnstillinger og bruke DNS og HTTP.
+
+Nettverkene skal testes og resultatene dokumenteres.
+
+Bedriftsnettverket skal være skalerbart og skal ha en ekstra avdeling, med flere klienter.
 
 # Del 1 – Fysisk Nettverk
 
