@@ -4,7 +4,7 @@
 I dette prosjektet så har jeg analysert, konfigurert og feilsøkt mitt lokale nettverk som jeg har på skolen:
 Videre så har jeg ved bruk av packet tracer satt opp ett virtuelt bedriftsnettverk, der 2 rutere skal kommunisere med hverandre og ha flere avdelinger med DHCP IP-er koblet til hver ruter, og som også skal kommunisere med hverandre og en server med DNS.
 
-# Krav spesifikasjon
+# Kravspesifikasjon
 
 Kravspesifikasjon:
 
@@ -24,7 +24,7 @@ Nettverkene skal testes og resultatene dokumenteres.
 
 Bedriftsnettverket skal være skalerbart og skal ha en ekstra avdeling, med flere klienter.
 
-# Del 1 – Fysisk Nettverk
+# Del 1 – Fysisk Nettverk - Fysisk topologi og utstyr
 
 Tegne nettverk
 Jeg koblet først nettverket skissert ut slik:
@@ -146,5 +146,26 @@ _Bilder mappen._
 <img width="764" height="109" alt="image" src="https://github.com/user-attachments/assets/c1871a65-10b2-4d64-b5d9-77b4bffaf16a" />
 
 _Bilder lagret på server, som klient har tilgang til._
+
+# Nmap, porter og Wireshark
+
+For å sjekke portene på nettverket åpnet jeg CMD, og skrev inn denne komandoen:
+
+nmap 192.168.1.10
+
+<img width="945" height="719" alt="image" src="https://github.com/user-attachments/assets/f412a3f7-e326-4540-a9ff-2abe2326500d" />
+
+_Slik så resultatet ut, her ser vi alle portene som er åpne eller lukkede dersom det er tilfellet._
+
+**445/tcp open  microsoft-ds - SMB**
+
+Dette er en nettverksprotokoll som gjør det mulig for enheter på et nettverk å dele filer slik som jeg har gjort med min fildelingsmappe, og skrivere over nettverket. 
+
+**389/tcp  open  ldap**
+
+Dette er en protokoll som søker i og henter informasjon fra en katalogtjeneste slik som Active Directory. Som sett på bildet ovenfor så er det en protokoll på port 636 som er kalt LDAPSSL. Dette er en kryptert versjon av LDAP-protokollen. 
+
+En åpen port betyr at en tjeneste som for eksempel Microsoft DS eller LDAP lytter etter tilkoblinger. Dette vil si at fildeling via serveren er mulig og at Active Directory kan brukes gjennom nettverket.
+
 
 
