@@ -167,5 +167,15 @@ Dette er en protokoll som søker i og henter informasjon fra en katalogtjeneste 
 
 En åpen port betyr at en tjeneste som for eksempel Microsoft DS eller LDAP lytter etter tilkoblinger. Dette vil si at fildeling via serveren er mulig og at Active Directory kan brukes gjennom nettverket.
 
+# Del 2 – Packet Tracer
 
+**Oppsett og testing av LAN**
+
+# IP-Routing
+
+# Oppsett av DHCP
+
+# Oppsett av HTTP og DNS
+
+# Simulation mode
 
