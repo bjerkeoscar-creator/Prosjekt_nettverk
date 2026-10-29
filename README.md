@@ -8,26 +8,27 @@ Videre så har jeg ved bruk av packet tracer satt opp ett virtuelt bedriftsnettv
 
 Kravspesifikasjon:
 
-ServerO2 og Klient pc skal kunne kommunisere med hverandre.
+* ServerO2 og Klient pc skal kunne kommunisere med hverandre.
 
-ServerO2 skal ha en fast IP-adresse.
+* ServerO2 skal ha en fast IP-adresse.
 
-Klient pc skal kunne få nettverksinnstillinger fra ruter med DHCP
+* Klient pc skal kunne få nettverksinnstillinger fra ruter med DHCP
 
-Klient pc skal bruke minst én tjeneste på ServerO2
+* Klient pc skal bruke minst én tjeneste på ServerO2
 
-Bedriftsnettverk i packet tracer skal ha flere LAN og Routing mellom dem.
+* Bedriftsnettverk i packet tracer skal ha flere LAN og Routing mellom dem.
 
-Klientene i packet tracer skal få riktige nettverksinnstillinger og bruke DNS og HTTP.
+* Klientene i packet tracer skal få riktige nettverksinnstillinger og bruke DNS og HTTP.
 
-Nettverkene skal testes og resultatene dokumenteres.
+* Nettverkene skal testes og resultatene dokumenteres.
 
-Bedriftsnettverket skal være skalerbart og skal ha en ekstra avdeling, med flere klienter.
+* Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne bygges ut med en ny avdeling og flere klienter.
 
 # Del 1 – Fysisk Nettverk - Fysisk topologi og utstyr
 
 Tegne nettverk
 Jeg koblet først nettverket skissert ut slik:
+
  <img width="945" height="559" alt="image" src="https://github.com/user-attachments/assets/b53245d7-7e56-495f-864d-eab8272ef564" />
  
 Switch port 1 er koblet til port 1 på Ruter1, 
@@ -48,18 +49,13 @@ Port 3 går til Internettport på Ruteren til Ludvig
 
 
 # Adresseplan
-Nettverket bruker subnettet 255.255.255.0 eller /24
-
-Klient pc statisk via Ethernet: 192.168.1.11
-
-Klient pc dynamisk via wifi: 192.168.1.100
-
-(DHCP spekteret går fra 100 til 199, og endelsen på IP-adressen kan derfor variere i noe av oppgaven) 
-
-Server: 192.168.1.10 
-
-Ruter og Gateway: 192.168.1.1
-
+* Subnett: **255.255.255.0 eller /24**
+* Klient PC (statisk via Ethernet): **192.168.1.11**
+* Klient PC (dynamisk via WiFi): **192.168.1.100** 
+* Server: **192.168.1.10**
+* Ruter og Gateway: **192.168.1.1**
+  
+_(DHCP-spekteret går fra 100 til 199, og endelsen på IP-adressen kan derfor variere i noe av oppgaven)_
 # Kommunikasjon mellom klient og server
 For å være sikker på at klient og server fikk kommunisert så pinget jeg først til server.
 
@@ -298,6 +294,46 @@ Router1 Gateway port 0/2:
 Server0 har IP: 
 **192.168.30.10**
 
+Når jeg skulle koble Router1 til Router2 så la jeg merke til at portene som jeg fikk av modulen: **HWIC-4ESW**
+
+Ga meg 4 Ethernet porter som jeg ikke kunne konfigurere gateway på, jeg måtte derfor endre disse portene, jeg fant ut at jeg måtte bytte over til **HWIC-1GE-SFP**, med **GLC-LH-SMD** port, da denne ville la meg putte inn gateway.
+
+Denne porten ville ikke la meg koble til en av de vanlige gigabitportene så jeg måtte koble denne til samme modul på Router2, og sørge for at de var koblet sammen.
+
+Når jeg var ferdig med oppsettet av enhetene så nettverket slik ut:
+
+### Administrasjon
+
+* Nettverk: **192.168.10.0/24**
+* Gateway: **192.168.10.1**
+* PC0 (statisk): **192.168.10.10**
+* PC1 (statisk): **192.168.10.11**
+
+### Support
+
+* Nettverk: **192.168.20.0/24**
+* Gateway: **192.168.20.1**
+* PC2 (statisk): **192.168.20.10**
+* PC3 (statisk): **192.168.20.11**
+
+### Server
+
+* Nettverk: **192.168.30.0/24**
+* Gateway: **192.168.30.1**
+* Server0 (statisk): **192.168.30.10**
+
+### Salg
+
+* Nettverk: **192.168.40.0/24**
+* Gateway: **192.168.40.1**
+* PC4 (statisk): **192.168.40.10**
+* PC5 (statisk): **192.168.40.11**
+
+### Ruterne (eget nettverk)
+
+* Nettverk: **10.0.0.0/30**
+* Router 1 IP-adresse: **10.0.0.1** (for kontakt med Router2)
+* Router 2 IP-adresse: **10.0.0.2** (for kontakt med Router1)
 
 
 
