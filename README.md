@@ -235,6 +235,76 @@ Selv om mye av denne trafikken var vanskelig å tolke, så følte jeg at det i h
 
 **Oppsett og testing av LAN**
 
+Jeg begynte på oppgaven ved å legge til alle komponentene som oppgaven trengte. Siden jeg var litt usikker på hvordan nettverket skulle se ut, så tok jeg utgangspunkt fra en tidligere oppgave der jeg lagde ett lite kontornettverk.
+
+Som så slik ut:
+
+<img width="945" height="521" alt="image" src="https://github.com/user-attachments/assets/a0b6ea77-713f-4f32-89ca-e81bc98a9d88" />
+
+_Her så ser vi en switch for hver avdeling, hvor hver klient er koblet til switch. Switchene er så koblet til ruter._
+
+Mitt bedriftsnettverk så da slik ut:
+
+<img width="945" height="449" alt="image" src="https://github.com/user-attachments/assets/c12c741c-ff2a-4491-947d-61a3a3ad4a21" />
+
+Jeg fulgte samme utgangspunkt som  det lille kontornettverket på Router1, jeg la bare til server nettverket. Siden Salg skulle ha sin egen avdeling, så måtte jeg også sørge for at de var på en egen ruter kalt router2 som så var koblet til router1.
+
+På den første ruteren jeg valgte så var det ikke nok porter for alle switchene på hovedkontoret, så jeg byttet da til ruter 2911. På denne fikk jeg mulighet til å koble ruteren til alle switchene. 
+
+Det var et nytt problem som oppstod når jeg skulle koble router 1 til router 2, det var at jeg ikke nok porter til å koble disse sammen. Da fant jeg ut at det er mulig å utvide portene på packet tracer ved å gå inn på physical
+
+<img width="945" height="283" alt="image" src="https://github.com/user-attachments/assets/0343e57d-96d3-4960-b208-c8810e0692a8" />
+
+Og her dro jeg inn HWC-4ESW, denne ga meg 4 flere porter. Jeg gjorde det samme på router 2 og slik så fikk jeg koblet sammen nettverket.
+
+<img width="639" height="52" alt="image" src="https://github.com/user-attachments/assets/fc00213f-ed30-4d34-bcc0-4164220ea78a" />
+
+Jeg konfigurerte Gateway på Router1 port 0/0 til Administrasjon IP: 192.168.10.1/24, med no shutdown på slutten, som sørger for at porten blir skrudd på. 
+Videre så ga jeg en statisk IP til PC0:
+
+<img width="945" height="114" alt="image" src="https://github.com/user-attachments/assets/7f244b2b-3967-4930-8788-1656994e7ee0" />
+
+For å teste om PC0 fikk kommunisert med Router1 så pinget jeg Router 1 fra PC0.
+
+<img width="684" height="317" alt="image" src="https://github.com/user-attachments/assets/14217d01-918d-4b83-941f-45ae38c92077" />
+
+Noe som funket
+
+Jeg ga videre en statisk IP til PC1, med IP 192.168.10.11, jeg pinget så PC0 fra PC1:
+
+<img width="675" height="336" alt="image" src="https://github.com/user-attachments/assets/9db65b09-7537-41f8-a5b7-c8335f6a4ff2" />
+
+Dette funket også
+
+Jeg gjorde så det samme med support nettverket. Dette var den samme prosessen om over, men med følgende adresser:
+
+_/24 for alle_
+
+Router1 Gateway port 0/1: 
+**192.168.20.1**
+
+Support PC2: 
+**192.168.20.10**
+
+Support PC3: 
+**192.168.20.11**
+
+Etter at jeg hadde satt opp support, så startet jeg med å sette opp server.
+
+
+Router1 Gateway port 0/2:
+**192.168.30.1**
+
+Server0 har IP: 
+**192.168.30.10**
+
+
+
+
+
+
+
+
 # IP-Routing
 
 # Oppsett av DHCP
