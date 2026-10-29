@@ -89,6 +89,7 @@ ServerO1 er gitt en manuell IP adresse. Som er: 192.168.1.10
 Siden server er en domain Controller så må IP-en være statisk, eller så får ikke klient og server kommunisert, og funksjoner som GPO vil ikke fungere. i dette tilfellet er også serveren DNS serveren. En DNS bør alltid være statisk siden den fungerer som ankeret i nettverket der alle enhetene kan søke opp adressen for å få kontakt.
 
 Klient PC er gitt en IP-adresse med fra DHCP innenfor det oppsatte spekteret. Som er:
+
 <img width="945" height="221" alt="image" src="https://github.com/user-attachments/assets/03e13f34-3a96-4805-957d-130d3e0e6c81" />
 
 ved å bruke
@@ -102,12 +103,15 @@ ipconfig /renew
 Denne kommandoen gjør at klienten sender en ny forespørsel til DHCP, og spør om en ny IP-adresse.
 
 Ved å bruke ipconfig/all så resultatet slik ut:
+
 <img width="945" height="425" alt="image" src="https://github.com/user-attachments/assets/6db219b0-748d-4ae0-acd5-b7709fe890ab" />
 
 IP-adressen jeg hadde tidligere ble endret til 100 istedenfor 101, da 100 var ikke leaset ut.
 
 Gateway:
+
 <img width="945" height="348" alt="image" src="https://github.com/user-attachments/assets/233e8d44-6f2a-4922-9dd4-6b0ce9c3e07e" />
+
 Ruter er gitt samme IP- adresse som Gateway. Da ruteren er sluttpunktet på nettverket.
 
 # Fildeling
@@ -192,6 +196,40 @@ I fangsten hvor jeg åpnet den delte mappen så kunne jeg se protokollen SMB, so
 Wireshark, så ser jeg pakke trafikken, der jeg kan se hvor pakkene blir sendt fra og hvor de sendes. Jeg får også muligheten til å observere noe av trafikken på klient. Generelt sett så kan det være begrenset hvor detaljert innholdet i hver individuelle pakke er da mye er kryptert.
 
 Alt i alt så skanner NMAP portene på Server02, der kan jeg se hva som er tilgjengelig og hvilken tilstand. Wireshark derimot ser på pakketrafikken på klienten hvor man kan se på hva som skjer mellom klient og server.
+
+**Videre utforskning**
+
+For å forstå Wireshark enda mer så gjorde jeg en annen test, jeg lagde en mappe på klient pc-en under en Wireshark fangst. 
+
+Først så lagde jeg mappen som vises på fangsten slik:
+
+<img width="945" height="41" alt="image" src="https://github.com/user-attachments/assets/1afba06d-90df-44b8-9de0-c52f31862290" />
+
+_Her så kan vi se at klient gjør en forespørsel sendt til server om å lage en ny mappe, og hvor serveren så svarer på forespørselen til klienten._
+
+<img width="945" height="73" alt="image" src="https://github.com/user-attachments/assets/f7e6672f-68e6-443e-b0ab-903fd7c54ce7" />
+
+Etter dette så kan jeg se under TCP protokollen. At Porten til klienten 58397  brukes mot 445 (SMB). 
+
+Porten 58397 tilhører klienten, og er en «Ephemeral port» dette er en dynamisk port som Windows oppretter for en kortvarig kommunikasjon med porten til tjenesten på serveren i dette tilfellet SMB nevnt tidligere.
+
+Kommunikasjonen følger samme mønster som tidligere der den starter fra klient til server. 
+
+Her sender de pakker som:
+
+<img width="945" height="97" alt="image" src="https://github.com/user-attachments/assets/91997335-9417-47ee-8e03-ba427f3db237" />
+
+_Her kan vi se mer av kommunikasjonen mellom klient og server når det kommer til opprettelse av mappen._
+
+<img width="945" height="30" alt="image" src="https://github.com/user-attachments/assets/47bb3264-8f88-425e-83de-10fb018405fa" />
+
+Etter litt googling så ser det ut til at her, så spør klient om info om filsystemet til server mappen. Informasjon som trolig er relevant og nødvendig før det blir laget en mappe.
+
+<img width="945" height="19" alt="image" src="https://github.com/user-attachments/assets/5780cbd6-7ac6-4283-bdd4-eb4474ded6fd" />
+
+Lenger ned i kommunikasjonen så finner jeg  en henvendelse fra klient til server, her så blir gjort en ny forespørsel om å endre navn på den nye mappen til 123. Noe som samsvarer med det jeg gjorde fra klient pc-en.
+
+Selv om mye av denne trafikken var vanskelig å tolke, så følte jeg at det i hvert fall ga meg et dypere innblikk i hvordan klienten kommuniserer med server i sanntid.
 
 # Del 2 – Packet Tracer
 
