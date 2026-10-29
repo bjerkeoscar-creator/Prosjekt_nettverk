@@ -147,7 +147,7 @@ _Bilder mappen._
 
 _Bilder lagret på server, som klient har tilgang til._
 
-# Nmap, porter og Wireshark
+# Nmap, porter
 
 For å sjekke portene på nettverket åpnet jeg CMD, og skrev inn denne komandoen:
 
@@ -166,6 +166,32 @@ Dette er en nettverksprotokoll som gjør det mulig for enheter på et nettverk �
 Dette er en protokoll som søker i og henter informasjon fra en katalogtjeneste slik som Active Directory. Som sett på bildet ovenfor så er det en protokoll på port 636 som er kalt LDAPSSL. Dette er en kryptert versjon av LDAP-protokollen. 
 
 En åpen port betyr at en tjeneste som for eksempel Microsoft DS eller LDAP lytter etter tilkoblinger. Dette vil si at fildeling via serveren er mulig og at Active Directory kan brukes gjennom nettverket.
+
+# Wireshark
+
+Nå skulle jeg bruke Wireshark til å lese trafikken som skjer når jeg bruker ping til server fra klient-pc, og åpner den delte mappen fra server på klient pc-en.
+
+**Ping til server**
+
+<img width="945" height="125" alt="image" src="https://github.com/user-attachments/assets/ce26720d-5a46-4554-abe9-0f50201d0ecf" />
+
+Som vi ser på denne loggen, så blir først en ping request sendt fra klient pc-en (192.168.1.101) til serveren (192.168.1.10), og får ett svar i retur. Dette repeteres fire ganger siden en ping sender fire request, i mitt tilfelle så fikk jeg reply på alle, men hvis en request ikke fikk en reply så ville dette blitt loggført som en tapt pakke i CMD.
+
+**Åpne den delte mappen fra server**
+
+Etter ping fangsten startet jeg en ny fangst der jeg kunne se trafikken når jeg åpnet den delte mappen fra server på klienten.
+
+<img width="945" height="253" alt="image" src="https://github.com/user-attachments/assets/aa12ecf5-a59c-4da7-a74f-d1b3043d2896" />
+
+Her ser vi at først så spør klienten (create request) serveren om tilgang til å mappen bilder. 
+Videre så svarer serveren (create response) og serveren verifiserer brukerens rettigheter, og  gir eventuelt tilgang til mappen etter å ha gått gjennom rettighetene til brukeren.
+
+NMAP skanner Server02  hvor jeg kan se hvilke porter som er blant annet åpne og lukkede. Den kan også gi meg et innblikk i tjenester som er tilgjengelige på server. 
+I fangsten hvor jeg åpnet den delte mappen så kunne jeg se protokollen SMB, som jeg valgte ut fra NMAP scanningen tidligere, her kan vi se i praksis et dypere innblikk i hvordan denne protokollen håndterer fildelingtrafikk.
+
+Wireshark, så ser jeg pakke trafikken, der jeg kan se hvor pakkene blir sendt fra og hvor de sendes. Jeg får også muligheten til å observere noe av trafikken på klient. Generelt sett så kan det være begrenset hvor detaljert innholdet i hver individuelle pakke er da mye er kryptert.
+
+Alt i alt så skanner NMAP portene på Server02, der kan jeg se hva som er tilgjengelig og hvilken tilstand. Wireshark derimot ser på pakketrafikken på klienten hvor man kan se på hva som skjer mellom klient og server.
 
 # Del 2 – Packet Tracer
 
