@@ -335,15 +335,140 @@ Når jeg var ferdig med oppsettet av enhetene så nettverket slik ut:
 * Router 1 IP-adresse: **10.0.0.1** (for kontakt med Router2)
 * Router 2 IP-adresse: **10.0.0.2** (for kontakt med Router1)
 
-
-
-
-
-
-
 # IP-Routing
 
+Etter oppsettet av LAN, så trengte jeg å sette opp IP-routing slik at hovedkontoret vet hvordan det skal kommunisere med salgsavdelingen.
+
+Jeg begynte derfor på router2 å sette opp IP route via:
+
+<img width="728" height="22" alt="image" src="https://github.com/user-attachments/assets/fe5d2f56-f6d5-43a3-a33c-bebed9218e0d" />
+
+Jeg gjorde dette for alle nettverkene på Router1, og dette var resultatet:
+
+<img width="834" height="238" alt="image" src="https://github.com/user-attachments/assets/d24777f8-5f3e-40fa-aa8a-cd1a610bb969" />
+
+Her kan vi se administrasjon, support og server nettverket på Router1.
+
+På Router1 så skrev jeg inn:
+
+<img width="677" height="28" alt="image" src="https://github.com/user-attachments/assets/bba637f9-aba0-4b54-90f9-491f1ec1af99" />
+
+Og slik så det ut i routing tabben i brukergrensesnittet:
+
+<img width="886" height="133" alt="image" src="https://github.com/user-attachments/assets/ebda5334-e076-4547-a1b2-3910977d7ea4" />
+
+Dette gjør at nettverket på hovedkontoret vet hvordan det kan kommunisere med salgsavdelingen, og motsatt.
+
+IP-route fra Router1:
+
+<img width="916" height="586" alt="image" src="https://github.com/user-attachments/assets/d7ad666c-1816-4b76-bf14-bddcc5e6b30f" />
+
+_Nederst så ser vi nettverket på Router2_
+
+IP-route fra Router2:
+
+<img width="945" height="443" alt="image" src="https://github.com/user-attachments/assets/7ee78eb3-6bba-4f44-8689-e54ded9f51be" />
+
+_Her ser vi til høyre for S, Administrasjon, salg og server nettverket på Router1._
+
+
+Når en pc fra administrasjon nå sender en pakke til salgsavdelingen så sendes pakken videre til gateway på router1. Router1 henvender seg til tabellen (show ip route)
+
+her så  ser vi 192.168.40.0/24, og adressen til Router2.
+
+Siden det samme er gjort for alle nettverkene på router1.
+
+Så vet begge ruterne hvor de skal sende trafikken, og trafikken kan gå begge veier.
+
+**Tracert sammenligning mellom det fysiske og det virtuelle nettverket**
+
+Tracert fra administrasjon klient(router1) til salg klient(router2):
+
+<img width="722" height="208" alt="image" src="https://github.com/user-attachments/assets/967bffdf-697a-4cd2-a8f8-250edfec9ed0" />
+
+_Her  så ser vi at pakken først blir sendt til administrasjon sin gateway på router1, videre så blir pakken sendt til salgsavdelingen sin router2, og fra router2 til klient._
+
+Tracert på det fysiske nettverket:
+
+<img width="855" height="477" alt="image" src="https://github.com/user-attachments/assets/c6eb8bd1-8836-4ca4-acfa-f9b0654af696" />
+
+_Siden klient og server kommuniserer direkte i samme subnett, uten å gå gjennom en gateway på ruter, er det bare ett hopp._
+
 # Oppsett av DHCP
+
+Etter å ha satt opp IP-Routing, så begynte jeg på oppsett av DHCP.
+
+Jeg satt opp først DHCP for Administrasjon nettverket:
+
+<img width="816" height="102" alt="image" src="https://github.com/user-attachments/assets/19e0e9aa-d5de-4bfb-838d-a7ed48664b41" />
+
+Her setter jeg 1-20 som excluded, dette gjør at DHCP ikke kan utdele disse adressene automatisk, de er reserverte for ting som trenger statiske adresser, som gateway og server. I tillegg er det reservert flere adresser enn det som trengs slik at om jeg skulle utvide nettverket i fremtiden med ting som trenger statiske IP-adresser så er det mulig.
+
+<img width="402" height="47" alt="image" src="https://github.com/user-attachments/assets/c1660f0c-8a10-42e6-bbe8-4c43498fd60d" />
+
+Her lager en pool kalt ADMIN, som gjør det mulig å konfigurere nettverket som er oppsatt med DHCP.
+
+<img width="656" height="70" alt="image" src="https://github.com/user-attachments/assets/0c659ac3-e1a9-4e77-b09c-cf72e10aa9fd" />
+
+I DCHP config så spesifiserte jeg nettverket til Administrasjon, og gateway, dette gjør at klientene i ADMIN poolen automatisk får IP, og gateway via DHCP.
+
+Jeg gjorde det samme for support:
+
+<img width="738" height="130" alt="image" src="https://github.com/user-attachments/assets/b7a6252a-cfdd-4f50-8e6e-6db764db7dc7" />
+
+Etter å ha skrudd på DHCP så var dette de nye IP-adressen på maskinene som sett fra Router1:
+
+<img width="864" height="155" alt="image" src="https://github.com/user-attachments/assets/7db64526-a541-4322-ba37-48870d7e1f2f" />
+
+Ved bruk av show ip dhcp binding så ser vi hvilke IP-adresser som ruteren har leaset ut:
+
+<img width="924" height="528" alt="image" src="https://github.com/user-attachments/assets/b49c53e8-f0ee-48c7-b20a-8a41c0fe87f4" />
+
+Ved bruk av show ip dhcp pool så ser vi konfigureringen av IPen innenfor hver navngitte pool hvor jeg ga navnet for hvert nettverk. Ved å bruke disse kommandoene så kan vi se at både ADMIN og SUPPORT har fått utdelt IP på 2 klienter.
+
+## Jeg sjekket hvilke klienter som fikk hva:
+### Administrasjon:
+* Pc0 fikk IP-en: **192.168.10.21**
+* Pc1 fikk IP-en: **192.168.10.22**
+### Support:
+* Pc2 fikk IP-en: **192.168.20.21**
+* Pc3 fikk IP-en: **192.168.20.22**
+
+Jeg lot server nettverket være statisk da det ikke er noen klienter der, og serveren bør ikke ha en dynamisk IP.
+
+På router 2 gjorde jeg det samme for salg:
+
+<img width="824" height="272" alt="image" src="https://github.com/user-attachments/assets/4e75395b-3e5d-4db7-9c26-723da5d40e37" />
+
+<img width="889" height="141" alt="image" src="https://github.com/user-attachments/assets/baa52989-ee86-4ca9-9dc5-6cf67cccb593" />
+
+<img width="945" height="290" alt="image" src="https://github.com/user-attachments/assets/e8d0a21b-c4f2-4d93-bed2-9d4d4f25003c" />
+
+Det ble leaset ut 2 adresser på hver klient i salg:
+
+* Pc4 fikk IP-en: **192.168.40.21**
+* Pc5 fikk IP-en: **192.168.40.22**
+  
+For å teste skalerbarheten på nettet i salg så la jeg til 2 nye klienter.
+
+Ved å endre ipv4 fra statisk til DHCP så ble de 2 nye klientene automatisk tildelt en IP-adresse.
+
+Pc6 fikk IP-en som slutter på 23 og pc 7 fikk IP-en som slutter på 24.
+
+## Test av kommunikasjon med ping
+
+Etter å ha konfigurert DHCP på alle nettverkene utenom server, så sjekket jeg kommunikasjonen på tvers av nettverkene.
+
+Fra support pc3 pinget jeg Salg pc1:
+
+<img width="691" height="291" alt="image" src="https://github.com/user-attachments/assets/85a556ca-e579-4697-b8d4-cc46f667b890" />
+
+Fra server så pinget jeg salg pc2:
+
+<img width="730" height="348" alt="image" src="https://github.com/user-attachments/assets/54a57288-7792-45f4-877c-7ebf71f5b5cb" />
+
+
+
 
 # Oppsett av HTTP og DNS
 
