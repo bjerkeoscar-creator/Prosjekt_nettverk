@@ -467,10 +467,50 @@ Fra server så pinget jeg salg pc2:
 
 <img width="730" height="348" alt="image" src="https://github.com/user-attachments/assets/54a57288-7792-45f4-877c-7ebf71f5b5cb" />
 
-
-
-
 # Oppsett av HTTP og DNS
+
+Nå skulle jeg aktivere HTTP og DNS
+
+Jeg sørget til å begynne med at HTTP var skrudd på, og skrudde så på DNS.
+
+<img width="945" height="252" alt="image" src="https://github.com/user-attachments/assets/665c15d1-be5b-4a11-aee2-c57d7d374f95" />
+
+Her lagde jeg intranett.fjordtek.local som navnet på domenet, og koblet den til  Server IP-en: 192.168.30.10.
+
+I server IP configurator så la jeg til Server DNS:
+
+<img width="945" height="252" alt="image" src="https://github.com/user-attachments/assets/f3a62941-df6a-4ca8-864e-03c02d9a3c7a" />
+
+Her lagde jeg intranett.fjordtek.local som navnet på domenet, og koblet den til  Server IP-en: 192.168.30.10.
+
+I server IP configurator så la jeg til Server DNS:
+
+<img width="945" height="200" alt="image" src="https://github.com/user-attachments/assets/e0a3be2c-ee0f-4047-b961-c73f1a436190" />
+
+Jeg pinget domene fra Server:
+
+<img width="675" height="347" alt="image" src="https://github.com/user-attachments/assets/d2f91df2-a0da-4005-937d-8bd3c08a427c" />
+
+Dette funket.
+
+Jeg prøvde å gjøre det samme fra administrasjon klient.
+
+<img width="945" height="281" alt="image" src="https://github.com/user-attachments/assets/b592722e-13e8-488c-ba4c-76e5c33c9ff3" />
+
+Å pinge serveren direkte funket, men klienten kunne ikke finne domenet.
+
+Jeg måtte legge til en DNS server, men DHCP blokkerte meg fra å gjøre dette manuelt.
+Etter litt research så fant jeg ut at jeg måtte gjøre dette med bruk av kommandoen:
+
+dns-server 192.168.30.10
+
+jeg måtte så gjøre dette:
+
+<img width="738" height="131" alt="image" src="https://github.com/user-attachments/assets/9b996eef-d8ca-4ac7-b2de-3e550d330e05" />
+
+For hver pool/avdeling.
+
+Etter dette så måtte jeg ipconfig /release og ipconfig /renew, for å få en ny lease, ettersom at jeg endret innstillinger på DHCP og disse endringene tar ikke effekt før en ny lease har blitt gjort. 
 
 # Simulation mode
 
