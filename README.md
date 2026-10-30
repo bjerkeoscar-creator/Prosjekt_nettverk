@@ -844,7 +844,9 @@ På serveren så fant jeg ut at min manuelle IP adresse på server ble satt som 
 For å fikse dette så fulgte jeg løsningen jeg fant [her](https://help.webtechpro.com/hc/en-us/articles/8067928508307-Autoconfiguration-IP-Duplicate-IP-address-issue-solution
 )
 
-Jeg gikk på registry editor og fulgte denne adressen **HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\Tcpip\Parameters\Interfaces\ServerenSinAdapter** 
+Jeg gikk på registry editor og fulgte denne adressen:
+
+**HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\Tcpip\Parameters\Interfaces\ServerenSinAdapter** 
 
 Her lagde jeg verdien **IPAutoconfigurationEnabled** og skrev 0. Dette skrudde av IP auto konfigurasjonen, da denne verdien hvis den ikke ble vist var 1.
 
@@ -869,6 +871,16 @@ Jeg hadde ikke gjort noen store endringer når jeg power cyclet så jeg hadde mu
 For å forhindre at dette skjedde neste gang jeg skulle gjøre en power cycle, så eksporterte jeg running config på hver ruter. Videre så loadet jeg dem så på oppstart, når jeg nå resatte nettverket med en power cycle så ble det riktig konfigurert.
 
 # Oppsummering og refleksjon
+
+Alt i alt så har jeg lært masse  om hvordan man bruker packet tracer for å simulere et nettverk.
+
+Jeg føler at jeg har fått en dypere forståelse for nettverk, som igjen vil gjøre at jeg lettere kan feilsøke når ting går galt på et nettverk i fremtiden, i tillegg så føler jeg at jeg har fått mer kunnskap i hvordan jeg skal strukturere dokumentasjonen min på GitHub.
+
+Hvis jeg hadde hatt to ekstra uker, så ville jeg på den fysiske delen sett mer på mulighetene når det kommer til å sette opp en virtuell server via hyper-V.
+
+På packet tracer så ville jeg ha bygget videre på nettverket jeg allerede har laget, hvor jeg ville ha laget flere avdelinger, hvor jeg så hadde flere ruter for å se hva grensen på nettverket ville vært med tanke på porter tilgjengelig på ruterne. 
+
+Jeg ville også ha utforsket VLAN hva det er, og hva jeg kan bruke det til. 
 
 # Kilder
 
