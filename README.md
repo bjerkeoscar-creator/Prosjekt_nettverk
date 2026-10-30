@@ -510,11 +510,111 @@ jeg måtte så gjøre dette:
 
 For hver pool/avdeling.
 
-Etter dette så måtte jeg ipconfig /release og ipconfig /renew, for å få en ny lease, ettersom at jeg endret innstillinger på DHCP og disse endringene tar ikke effekt før en ny lease har blitt gjort. 
+Etter dette så måtte jeg ipconfig /release og ipconfig /renew, for å få en ny lease, ettersom at jeg endret innstillinger på DHCP og disse endringene tar ikke effekt før en ny lease har blitt gjort.
+
+Når jeg pinget fra klient på administrasjon nå så funket ping til domenet:
+
+<img width="655" height="292" alt="image" src="https://github.com/user-attachments/assets/1866ec66-307a-4e3e-87be-b5352574cf73" />
+
+Etter å ha gjort dette på alle klientene så var oppsettet av DNS ferdig.
 
 # Simulation mode
 
+Etter å ha satt opp DNS, så testet jeg nettverket med simulation mode.
+
+Først testet jeg kommunikasjonen mellom klienter i samme LAN.
+
+Jeg fikk ikke opp ARP i event list, så jeg måtte først bruke ARP -D i command prompt på klienten jeg skulle sende fra. Dette slettet så ARP cache slik at jeg kunne vise ARP på simulation panelet:
+
+<img width="600" height="498" alt="image" src="https://github.com/user-attachments/assets/4d80f9a5-7c00-494f-b9f7-a811f23e6936" />
+
+_Dette viser en «Simple PDU» (noe som tilsvarer en ping) fra Admin PC0 til Admin PC1_
+
+Her ser vi først ARP der Admin PC0 spør etter MAC-adressen til Admin PC1 da den må koble sammen IP-en til PC1 med MAC-adressen på maskinen.
+
+Etter  dette så går ARP gjennom switchen til Admin PC1 den spør også ruteren da dette blir kringkastet gjennom hele nettverket.
+
+Admin PC1 svarer, og forteller PC0 at den har IP-adressen som PC0 spør etter og sender så videre MAC-adressen tilbake til PC0, etter at PC0 mottar dette så blir dette lagret i cachen på PC0.
+
+Noe som jeg kan se med: **ARP -A**
+
+Dette gjør at hvis en pakke blir sendt senere så er denne MAC-adressen sin kobling til IP-adressen lagret og PC0 trenger ikke å sende en ny ARP.
+
+Hvor lenge maskinen holder på en ARP cache varierer på ulike operativ systemer, men cachen blir slettet når kommunikasjonen er inaktiv over en lengre periode.
+
+Etter at ARP prosessen er ferdig så kan pingen begynne:
+
+<img width="583" height="158" alt="image" src="https://github.com/user-attachments/assets/aededb99-e541-47fc-b51f-dce415895b67" />
+
+_Her ser vi pingen går fra PC0 gjennom switchen til PC1, dette er en request til PC1, etter dette så sender PC1 en reply tilbake til PC0 gjennom switchen._
+
+Etter at jeg testet kommunikasjonen mellom Admin PC0 og Admin PC2, så testet jeg kommunikasjonen mellom Administrasjon og Salg.
+
+Når jeg sendte en «simple PDU» fra Admin PC-0 til Salg PC, så la jeg merke til at pakken ble failed flere ganger, etter ett par forsøk så funket det, men da ble det bare ICMP som var vist i eventlisten.
+
+<img width="617" height="586" alt="image" src="https://github.com/user-attachments/assets/ddd27a03-66f4-4963-9e2e-8fde96d9c718" />
+
+Jeg sjekket PC0, med ARP -A, der kunne jeg se at IP og MAC-adresse koblingen til Salg PC4 har blitt cachet:
+
+<img width="694" height="117" alt="image" src="https://github.com/user-attachments/assets/63f91674-967d-4a44-8dcd-ea2aa399c401" />
+
+Jeg gjorde en ny PDU denne gang til Salg PC5 da denne MAC-adressen ikke er cachet.
+Den ble failed på første forsøk og jeg så dette:
+
+<img width="606" height="414" alt="image" src="https://github.com/user-attachments/assets/603d82f6-6dac-4fbf-91c8-19f8ac4ab3ec" />
+
+På andre forsøk så var PDUen successful og  jeg så dette:
+
+<img width="614" height="625" alt="image" src="https://github.com/user-attachments/assets/9d6cbdc3-7dee-425d-a4cb-a18fab83da1f" />
+
+_Her ser vi at trafikken går fra Admin PC0  til admin switch videre så sendes pakken gjennom Router1 sin gateway, til Router2. fra Router2 så vet ikke pakken hvilken port Salg PC7 er på så den går gjennom alle portene. 
+Når den finner riktig klient så blir pakken mottatt, Salg pc7 sender reply pakke tilbake denne går gjennom gateway på Router2, og videre til Admin Switch og tilbake til  Admin PC0._
+
+Etter litt googling så lærte jeg at den første pakken blir droppet når den kommer til Router2 da Router2 må cache ARPen, og den dropper da pakken for å gjøre dette.
+
+På det andre forsøket så blir det vellykket da den har fått cachet ARPen, og dermed vet den hvilken MAC-adresse som skal ha pakken.
+
+Åpning av intranettsiden:
+
+<img width="945" height="291" alt="image" src="https://github.com/user-attachments/assets/148658fa-5d12-4109-b56d-2a36b8015ac0" />
+
+_Her ser vi CISCO sin index.html som er lagret på serveren._
+
+<img width="945" height="370" alt="image" src="https://github.com/user-attachments/assets/d5c28aa5-97a9-4d1e-87f0-5a11a8176b3b" />
+
+Jeg endret denne HTML-filen på serveren, og ga den navnet Fjordtek for å matche domenet. Som vi ser på URL-en så er ikke dette domenet sikret med HTTPS, den er derfor utsatt når det kommer til Wireshark fangster, som kan lese trafikken på nettstedet.
+
 # Telnet
+
+Etter at jeg var ferdig med simulation mode, så gjorde jeg oppsett av telnet på router1, hvor målet er å koble seg på Router1 fra Router2
+
+Slik så oppsettet på router1 ut:
+
+<img width="722" height="278" alt="image" src="https://github.com/user-attachments/assets/2b37aef6-e55e-4949-b2f6-ac54205cb9a7" />
+
+Line vty 0 4, _(betyr at enheten tillater 5 samtidige tilkoblinger)_
+
+Videre så ga jeg passordet **12345**
+
+Jeg skrev så inn login, som skrur på login funksjonen.
+
+Etter dette så skrev jeg transport input telnet, med denne kommandoen forteller jeg ruteren at  telnet protokollen kan brukes remote.
+
+Videre så gikk jeg på Router 2, her skrev jeg inn passordet som er **12345**
+
+<img width="358" height="153" alt="image" src="https://github.com/user-attachments/assets/c9061a1f-8673-4189-abed-676d4091f92d" />
+
+_Her ser vi telnet som spør etter passordet_
+
+Når jeg så kom inn etter å ha tastet passordet, så skrev jeg kommandoen: **show ip interface brief**
+
+<img width="942" height="228" alt="image" src="https://github.com/user-attachments/assets/196bc113-435f-4592-853d-4604a458a99a" />
+
+_Dette lar meg gjøre konfigureringer på Router1 fra Router2, på dette bildet så kan jeg se nettverkene på Router1 fra Router2_
+
+Protokollen Telnet er ikke et godt valg for moderne administrasjon fordi den er ukryptert som vil si at data som passord, og konfigureringer du gjør på ruteren som bruker telnet ikke er kryptert, denne dataen kan komme på avveie og det utgjør en sikkerhetsrisiko.
+I moderne nettverk så brukes protokollen SSH, denne protokollen er mye sikrere siden den krypterer slik data.
+
 
 # Akseptansetest – QA
 
