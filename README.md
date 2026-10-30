@@ -628,63 +628,260 @@ For å teste dette så pinger jeg server fra klient pc.
 Jeg forventer at pingen blir velykket, og at det ikke blir noen pakker som går tapt.
 
 ### Resultat:
-<img width="844" height="375" alt="image" src="https://github.com/user-attachments/assets/fa497935-855b-4d7b-b38a-81b0803c4852" />
 
 **Bestått**
+
+<img width="844" height="375" alt="image" src="https://github.com/user-attachments/assets/fa497935-855b-4d7b-b38a-81b0803c4852" />
+
+
 
 ## SERVER01 skal ha fast IP-adresse.
 ### Test som blir gjennomført
 
+Jeg sjekker IP-en på Server PCen om den er satt inn manuelt.
+
 ### Forventet resultat
 
+Jeg forventer at dette er tilfellet.
+
 ### Resultat:
+**Bestått**
+
+<img width="625" height="711" alt="image" src="https://github.com/user-attachments/assets/0d62d67a-5af9-46e9-a643-66c72e287da3" />
+
 
 ## CLIENT01 skal kunne få nettverksinnstillinger fra ruteren med DHCP.
 
 ### Test som blir gjennomført
 
+Jeg kjører ipconfig /all på CMD.
+
 ### Forventet resultat
 
+Jeg forventer at ipconfig /all forteller meg at DHCP er konfigurert.
+
 ### Resultat:
+
+**Bestått**
+
+<img width="945" height="447" alt="image" src="https://github.com/user-attachments/assets/2c0ba2f4-ff3e-4fb4-9c73-7fa373a5e6f7" />
+
+Her ser jeg DHCP enabled tydelig, men også at en lease har blitt «obtained» da jeg koblet pc-en til nettverket idag, dette forteller meg at IP-en har blitt tildelt via DHCP
+
 
 ## CLIENT01 skal kunne bruke minst én tjeneste på SERVER01.
 
 ### Test som blir gjennomført
 
+Jeg sjekker at fildelingen på servero2 funker. Jeg lager derfor en tekstfil kalt serverO2, jeg gjør det samme på klient pcen som jeg kaller klient. Og sjekker mappen etterpå, hvor jeg ser etter ServerO2 på klient-pcen, og klient på serverO2
+
 ### Forventet resultat
 
+Jeg forventer at begge får tilgang til filene som har blitt lagt inn.
+
 ### Resultat:
+
+**Bestått**
+
+Fra klient så ser jeg serverO2 .txt laget på server.
+
+<img width="945" height="616" alt="image" src="https://github.com/user-attachments/assets/df0e5067-da0f-4cb2-8983-4144b8ce1145" />
+
+Fra serverO2 så ser jeg klient.txt laget på klient-pc-en.
+
+<img width="945" height="533" alt="image" src="https://github.com/user-attachments/assets/37ffaf18-43c4-4bc6-8219-6e43389f91c7" />
 
 ## Bedriftsnettverket i Packet Tracer skal ha flere LAN og routing mellom dem.
 
 ### Test som blir gjennomført
 
+Her gjør jeg flere kommandoer, jeg bruker show IP router på begge ruterene for å vise routingen. 
+
+Videre så viser jeg en liste der jeg har sendt pakker mellom forskjellige enheter i varierte nettverk for å vise at de kommuniserer med hverandre 
+
 ### Forventet resultat
 
+Jeg forventer at hver ruter med show ip route viser hvilken nettverk som er koblet til, og at pakkene blir sendt.
+
 ### Resultat:
+
+**Bestått**
+
+Flere LAN:
+
+<img width="945" height="409" alt="image" src="https://github.com/user-attachments/assets/271641f1-ff99-4ab1-90d8-d705ae83b3f5" />
+
+Kommunikasjonen fungerer:
+
+<img width="647" height="273" alt="image" src="https://github.com/user-attachments/assets/9cca1ae1-fb38-4101-95b9-aad9d90ee874" />
+
+Routingen mellom dem:
+
+På Router1:
+
+<img width="870" height="500" alt="image" src="https://github.com/user-attachments/assets/a386bba0-6030-4644-821e-8e6968c8a664" />
+
+_Nederst på bildet kan vi se routingen er satt opp, den viser salgsavdelingen sitt nettverk._
+
+På Router2:
+
+<img width="895" height="472" alt="image" src="https://github.com/user-attachments/assets/a84b5ccf-c1ac-4cf8-ac88-66644325c62c" />
+
+_Her ser vi ved siden av S, Administrasjon, support og Server er satt opp._
 
 ## Klientene i Packet Tracer skal få riktige nettverksinnstillinger og kunne bruke DNS og HTTP.
 
 ### Test som blir gjennomført
 
+Jeg bruker show IP DHCP binding, for å vise IP-adressene klientene har blitt utdelt.
+Jeg viser også at domenet kan nås med web browser fra klient.
+
+
 ### Forventet resultat
 
+Jeg forventer at de blir utdelt riktige IP – adresser, og at domenet fungerer.
+
 ### Resultat:
+
+**Bestått**
+
+Klienter er utdelt riktige IP adresser fra DHCP på router1:
+
+<img width="856" height="178" alt="image" src="https://github.com/user-attachments/assets/fa1fed71-11c9-440d-a9d5-24e7a40286b0" />
+
+_Her ser vi at klientene på hovedkontoret har fått utdelt IP via DHCP._
+
+Klientene er utdelt riktige IP adresser fra DHCP på Router2:
+
+<img width="922" height="169" alt="image" src="https://github.com/user-attachments/assets/b2f538c7-4e53-4861-a7dd-bdd314bcc28c" />
+
+_Her ser vi at de 4 klientene på salg har fått utdelt IP via DHCP._
+
+Jeg gikk på en av klient pc-ene på hovedkontoret på web browser skrev jeg in domenet til server som er server ip: 192.168.30.10 og koblet til navnet infranett.fjordtek.local
+
+<img width="945" height="742" alt="image" src="https://github.com/user-attachments/assets/e3a9b7ad-6904-4cb4-9b2a-a93454315374" />
+
+_Som funket._
 
 ## Nettverkene skal testes og resultatene dokumenteres.
 
 ### Test som blir gjennomført
 
+Jeg sender en PDU pakke fra klient pcer til ruter på hver avdeling.
+Videre så sender jeg en pdu pakke fra en klient på hvert nettverk til et annet nettverk.
+
+Til slutt viser jeg at routingen fungerer ved å sende en pdu fra hovedkontor til salg og motsatt.
+
 ### Forventet resultat
 
+Jeg forventer at alle pakkene er feilfrie, og at en eventuell feil ville hendt på grunn av at ruteren dropper pakken for å skape en ARP forbindelse. 
+
 ### Resultat:
+
+**Bestått**
+
+Ping fra klienter på hovedkontoret til Router1:
+
+
+<img width="506" height="216" alt="image" src="https://github.com/user-attachments/assets/e287989b-8cd6-482f-bd22-85660a553391" />
+
+_Alle pakkene nådde målet._
+
+Ping fra klienter på Salg til Router2:
+
+<img width="506" height="183" alt="image" src="https://github.com/user-attachments/assets/c3a4a20a-7c76-4555-b978-20cc039ba931" />
+
+_Alle pakkene nådde målet._
+
+Ping fra klienter på ett nettverk til et annet nettverk:
+
+<img width="603" height="142" alt="image" src="https://github.com/user-attachments/assets/5f90bdf7-b9a3-4c48-bb0b-0b551003988c" />
+
+Ping fra klienter på salgskontoret til hovedkontoret:
+
+
+<img width="603" height="245" alt="image" src="https://github.com/user-attachments/assets/343f63d2-a0c4-47ea-84e4-179d665f2bb8" />
+
+_Som jeg antok så kunne det oppstå en pakke som feilet, dette er antageligvis pga ARP forbindelse som ble prioritert._
+
+Og motsatt:
+
+<img width="608" height="222" alt="image" src="https://github.com/user-attachments/assets/4d6f5533-ecea-4846-b857-880a9a3e8a20" />
 
 ## Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne utvides med flere klienter.
 
 ### Test som blir gjennomført
 
+Jeg legger til 2 nye klienter på Administrasjon og support på hovedkontoret.
+
 ### Forventet resultat
+
+Jeg forventer at det går fint, jeg legger til de 2 nye klientene, og det er minimalt med oppsett der jeg bare trenger å sørge for at DHCP blir leaset.
 
 ### Resultat:
 
+**Bestått**
+
+<img width="847" height="233" alt="image" src="https://github.com/user-attachments/assets/3ce5733a-ad99-499a-841c-76b1508fbcf0" />
+
+Det gikk fint de 2 nye klientene fikk tildelt en IP-adresse og automatisk satt opp en default gateway og DNS.
+
+De 2 nye klientene fikk kommunisert med hverandre:
+
+
+<img width="542" height="131" alt="image" src="https://github.com/user-attachments/assets/add9df5e-a638-4731-a901-fa598b6ab3ba" />
+
+# Feilsøking
+
+Problemer som oppstod underveis, og løsninger:
+
+## Fysiske nettverket
+
+Det første problemet som oppstod var at Windows server brukte en auto konfigurert IP, selv om jeg hadde tatt på IP manuelt.
+
+På serveren så fant jeg ut at min manuelle IP adresse på server ble satt som duplicate, og den auto konfigurerte IP-adressen jeg hadde med et uhell tatt på ble satt som preferred.
+
+For å fikse dette så fulgte jeg løsningen jeg fant [her](https://help.webtechpro.com/hc/en-us/articles/8067928508307-Autoconfiguration-IP-Duplicate-IP-address-issue-solution
+)
+
+Jeg gikk på registry editor og fulgte denne adressen **HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\Tcpip\Parameters\Interfaces\ServerenSinAdapter** 
+
+Her lagde jeg verdien **IPAutoconfigurationEnabled** og skrev 0. Dette skrudde av IP auto konfigurasjonen, da denne verdien hvis den ikke ble vist var 1.
+
+Etter dette så restartet jeg Server pc-en.
+
+Jeg gjorde så en ipconfig, og som det står i løsningen så var den autokonfigurerte IP-en nå fjernet, men min manuelt satte in IP-adresse var fortsatt satt som en duplicate.
+
+For å fikse dette måtte jeg gå tilbake til registry editor, jeg fulgte denne adressen da:
+
+**HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters**
+
+Her skrev jeg inn verdien **ArpRetryCount** , og skrev 0.
+
+Når jeg restartet pcen igjen nå så var serveren sin ip adresse min manuelle IP, og jeg fikk tilbake kontakten med serveren.
+
+## Packet tracer
+
+Ett problem som oppstod når jeg skulle gjøre en power cycle i packet tracer på enhetene mine i packet tracer var at alle konfigureringene jeg hadde gjort på ruterne ble slettet fordi de bare var lagret i RAM. Dette gjorde at ting som Routing og oppsett av IP adresser ble slettet.
+
+Jeg hadde ikke gjort noen store endringer når jeg power cyclet så jeg hadde muligheten til å lukke programmet uten å save for å åpne det igjen.
+
+For å forhindre at dette skjedde neste gang jeg skulle gjøre en power cycle, så eksporterte jeg running config på hver ruter. Videre så loadet jeg dem så på oppstart, når jeg nå resatte nettverket med en power cycle så ble det riktig konfigurert.
+
 # Oppsummering og refleksjon
+
+# Kilder
+
+[Windows server brukte en auto konfigurert IP](https://help.webtechpro.com/hc/en-us/articles/8067928508307-Autoconfiguration-IP-Duplicate-IP-address-issue-solution
+)
+
+[Informasjon om ARP](https://www.youtube.com/watch?v=cn8Zxh9bPio)
+
+Kilder jeg brukte for info på om telnet.
+
+[Telnet Geeks](https://www.geeksforgeeks.org/computer-networks/difference-ssh-telnet/)
+
+[Telnet IT Exams](https://itexamanswers.net/configure-router-vty-password-on-cisco-router-switch.html)
+
+Har også brukt KI, for noe forklaring på diverse kommandoer for å hjelpe meg forstå, framfor å vise.
+
