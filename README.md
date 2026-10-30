@@ -474,3 +474,77 @@ Fra server så pinget jeg salg pc2:
 
 # Simulation mode
 
+# Telnet
+
+# Akseptansetest – QA
+
+## ServerO2 og Klient pc skal kunne kommunisere med hverandre.
+### Test som blir gjennomført: 
+
+For å teste dette så pinger jeg server fra klient pc.
+
+### Forventet resultat:
+
+Jeg forventer at pingen blir velykket, og at det ikke blir noen pakker som går tapt.
+
+### Resultat:
+<img width="844" height="375" alt="image" src="https://github.com/user-attachments/assets/fa497935-855b-4d7b-b38a-81b0803c4852" />
+
+**Bestått**
+
+## SERVER01 skal ha fast IP-adresse.
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## CLIENT01 skal kunne få nettverksinnstillinger fra ruteren med DHCP.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## CLIENT01 skal kunne bruke minst én tjeneste på SERVER01.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## Bedriftsnettverket i Packet Tracer skal ha flere LAN og routing mellom dem.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## Klientene i Packet Tracer skal få riktige nettverksinnstillinger og kunne bruke DNS og HTTP.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## Nettverkene skal testes og resultatene dokumenteres.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+## Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne bygges ut med en ny avdeling og flere klienter.
+
+### Test som blir gjennomført
+
+### Forventet resultat
+
+### Resultat:
+
+# Oppsummering og refleksjon
