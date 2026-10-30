@@ -22,7 +22,7 @@ Kravspesifikasjon:
 
 * Nettverkene skal testes og resultatene dokumenteres.
 
-* Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne bygges ut med en ny avdeling og flere klienter.
+* Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne utvides med flere klienter.
 
 # Del 1 – Fysisk Nettverk - Fysisk topologi og utstyr
 
@@ -539,7 +539,7 @@ Jeg forventer at pingen blir velykket, og at det ikke blir noen pakker som går 
 
 ### Resultat:
 
-## Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne bygges ut med en ny avdeling og flere klienter.
+## Bedriftsnettverket skal være skalerbart og skal ha mulighet til å kunne utvides med flere klienter.
 
 ### Test som blir gjennomført
 
